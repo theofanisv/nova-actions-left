@@ -13,9 +13,7 @@
     <thead>
     <tr>
       <!-- Select Checkbox -->
-      <th class="w-16" v-if="shouldShowCheckboxes">
-        &nbsp;
-      </th>
+      <th class="w-16" v-if="shouldShowCheckboxes">&nbsp;</th>
 
       <!-- Actions, View, Edit, Delete -->
       <th>&nbsp;</th>
@@ -27,7 +25,7 @@
             @reset="resetOrderBy(field)"
             :resource-name="resourceName"
             :uri-key="field.sortableUriKey"
-            v-if="field.sortable"
+            v-if="sortable && field.sortable"
         >
           {{ field.indexName }}
         </sortable-icon>
@@ -55,6 +53,7 @@
         :via-many-to-many="viaManyToMany"
         :checked="selectedResources.indexOf(resource) > -1"
         :actions-are-available="actionsAreAvailable"
+        :actions-endpoint="actionsEndpoint"
         :should-show-checkboxes="shouldShowCheckboxes"
         :update-selection-status="updateSelectionStatus"
     />
@@ -109,6 +108,13 @@ export default {
     },
     updateSelectionStatus: {
       type: Function,
+    },
+    actionsEndpoint: {
+      default: null,
+    },
+    sortable: {
+      type: Boolean,
+      default: false,
     },
   },
 
